@@ -5,10 +5,10 @@
              mode="horizontal"
              v-bind:router="true"
              id="nav">
-      <
+      
       <el-menu-item index="/"
                     id="title">
-                    
+                    <img src ="static\img\logo.png" alt="">
                     </el-menu-item>
       <el-menu-item index="/">
         <i class="el-icon-star-off"></i>Home

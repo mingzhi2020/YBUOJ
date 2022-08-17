@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # 自己的模块
     'user',
     'problem',
+    'table',
 ]
 
 REST_FRAMEWORK = {

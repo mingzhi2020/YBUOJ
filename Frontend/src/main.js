@@ -38,7 +38,7 @@ const store = new Vuex.Store({
 })
 
 axios
-.get("/settingboard/")
+.get("/settingtable/")
 .then(res => {
   store.state.sb = res.data
 });

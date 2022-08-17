@@ -23,7 +23,7 @@
       <el-row>
         <el-tabs type="border-card">
           <el-tab-pane :label="label.des" >
-            <description></description>
+            <!-- <description></description> -->
           </el-tab-pane>
           <el-tab-pane :label="label.rank" :lazy="true">
             <rankchart></rankchart>

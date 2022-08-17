@@ -1,11 +1,14 @@
 from django_filters.rest_framework import DjangoFilterBackend  # 过滤器，筛选出想要的那个用户
 from rest_framework import filters
 from rest_framework.pagination import LimitOffsetPagination  # 方便分页
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.throttling import ScopedRateThrottle  # 限流器
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
+
+from .permission import UserSafePostOnly,ManagerOnly
 from .serializers import *
 
 
@@ -14,7 +17,7 @@ class UserDataView(ModelViewSet):
     serializer_class = UserDataSerializer
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('username',)
-    # permission_classes = (UserSafePostOnly,)
+    permission_classes = (UserSafePostOnly,)
     pagination_class = LimitOffsetPagination
     throttle_scope = "post"
     throttle_classes = [ScopedRateThrottle, ]
@@ -26,7 +29,7 @@ class UserView(ModelViewSet):
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
     filter_fields = ('username',)
     search_fields = ('username', 'name', 'realname', 'course', 'classes', 'school', 'number', 'qq')
-    # permission_classes = (UserSafePostOnly,)
+    permission_classes = (UserSafePostOnly,)
     pagination_class = LimitOffsetPagination
     throttle_scope = "post"
     throttle_classes = [ScopedRateThrottle, ]
@@ -38,7 +41,7 @@ class UserLoginDataView(ModelViewSet):  # 用户的登陆信息
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
     filter_fields = ('username', 'ip',)
     search_fields = ('username', 'ip')
-    # permission_classes = (ManagerOnly,)
+    permission_classes = (ManagerOnly,)
     pagination_class = LimitOffsetPagination
     throttle_scope = "post"
     throttle_classes = [ScopedRateThrottle, ]
@@ -126,7 +129,7 @@ class UserLoginDataAPIView(APIView):  # 获取用户登录ip得方法
 class UserRegisterAPIView(APIView):  # 注册
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    # permission_classes = (AllowAny,)
+    permission_classes = (AllowAny,)
     throttle_scope = "post"
     throttle_classes = [ScopedRateThrottle, ]
 
@@ -151,7 +154,7 @@ class UserRegisterAPIView(APIView):  # 注册
 class UserLoginAPIView(APIView):  # 实现用户登录的逻辑
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    # permission_classes = (AllowAny,)
+    permission_classes = (AllowAny,)
     throttle_scope = "post"
     throttle_classes = [ScopedRateThrottle, ]
 
@@ -186,7 +189,7 @@ class UserLogoutAPIView(APIView): #实现用户退出，勇session级数实现
 class UserUpdateRatingAPIView(APIView):  # 更新rating，当ac了一道题目之后
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    # permission_classes = (AllowAny,)
+    permission_classes = (AllowAny,)
     throttle_scope = "post"
     throttle_classes = [ScopedRateThrottle, ]
 
